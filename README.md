@@ -14,9 +14,9 @@ $$f(x)=\int _{-\infty }^{\infty }{\widehat {f}}(\xi )\ e^{i2\pi \xi x}\,d\xi ,\q
 ## Discrete Fourier Transform (DFT)
 As we are dealing with discrete data, the Discrete Fourier Transform (DFT) transforms a sequence of $N$ complex numbers:
 
-${\displaystyle \left\{\mathbf {x} _{n}\right\}:=x_{0},x_{1},\ldots ,x_{N-1}}$
+$\left\{\mathbf {x} _{n}\right\}:=x_{0},x_{1},\ldots ,x_{N-1}$
 
-${\displaystyle \left\{\mathbf {X} _{k}\right\}:=X_{0},X_{1},\ldots ,X_{N-1},}$
+$\left\{\mathbf {X} _{k}\right\}:=X_{0},X_{1},\ldots ,X_{N-1}$
 
 $$X_{k}=\sum _{n=0}^{N-1}x_{n}\cdot e^{-i2\pi {\tfrac {k}{N}}n}$$
 
@@ -34,7 +34,7 @@ A radix-2 decimation-in-time (DIT) FFT is the simplest and most common form of t
 
 Radix-2 DIT first computes the DFTs of the even-indexed inputs ${\displaystyle (x_{2m}=x_{0},x_{2},\ldots ,x_{N-2})}$ and of the odd-indexed inputs ${\displaystyle (x_{2m+1}=x_{1},x_{3},\ldots ,x_{N-1})}$ and then combines those two results to produce the DFT of the whole sequence. This idea can then be performed recursively to reduce the overall runtime to $O(N \log N)$. This simplified form assumes that $N$ is a power of two.
 
-$${\displaystyle {\begin{matrix}X_{k}=\underbrace {\sum \limits _{m=0}^{N/2-1}x_{2m}e^{-{\frac {2\pi i}{N/2}}mk}} _{\mathrm {DFT\;of\;even-indexed\;part\;of\;} x_{n}}{}+e^{-{\frac {2\pi i}{N}}k}\underbrace {\sum \limits _{m=0}^{N/2-1}x_{2m+1}e^{-{\frac {2\pi i}{N/2}}mk}} _{\mathrm {DFT\;of\;odd-indexed\;part\;of\;} x_{n}}=E_{k}+e^{-{\frac {2\pi i}{N}}k}O_{k}\qquad {\text{ for }}k=0,\dots ,{\frac {N}{2}}-1.\end{matrix}}}$$
+$$\begin{matrix}X_{k}=\sum \limits _{m=0}^{N/2-1}x_{2m}e^{-{\frac {2\pi i}{N/2}}mk}{}+e^{-{\frac {2\pi i}{N}}k} \sum \limits _{m=0}^{N/2-1}x_{2m+1}e^{-{\frac {2\pi i}{N/2}}mk}=E_{k}+e^{-{\frac {2\pi i}{N}}k}O_{k}\qquad {\text{ for }}k=0,\dots ,{\frac {N}{2}}-1.\end{matrix}$$
 
 ## References
 [Fourier Transform](https://en.wikipedia.org/wiki/Fourier_transform)
