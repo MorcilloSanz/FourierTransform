@@ -34,15 +34,11 @@ int main() {
 
 	std::cout << "\nDiscrete Fourier transform:" << std::endl;
 	std::vector<std::complex<double>> transformedSequence = ft::DFT(sequence);
-
-	for(auto& z : transformedSequence) 
-		std::cout << z << std::endl;
+	for(auto& z : transformedSequence) std::cout << z << std::endl;
 
 	std::cout << "\nInverse Fourier transform: " << std::endl;
 	std::vector<std::complex<double>> invTransformedSequence = ft::invDFT(transformedSequence);
-
-	for(auto& z : invTransformedSequence) 
-		std::cout << z << std::endl;
+	for(auto& z : invTransformedSequence) std::cout << z << std::endl;
 
 	return 0;
 }
