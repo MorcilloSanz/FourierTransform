@@ -18,9 +18,9 @@ void DFT_test() {
     std::cout << "\nDiscrete Fourier transform:" << std::endl;
     for(auto& z : transformedSequence) std::cout << z << std::endl;
     
-    std::vector<std::complex<double>> invTransformedSequence = ft::invDFT(transformedSequence);
+    std::vector<std::complex<double>> invTransformedSequence = ft::IDFT(transformedSequence);
     
-    std::cout << "\nInverse Fourier transform: " << std::endl;
+    std::cout << "\nInverse Discrete Fourier transform: " << std::endl;
     for(auto& z : invTransformedSequence) std::cout << z << std::endl;
 }
 
@@ -33,12 +33,19 @@ void FFT_test() {
 
     std::cout << "\nFast Fourier transform:" << std::endl;
     for(auto& z : transformedSequence) std::cout << z << std::endl;
+
+    std::vector<std::complex<double>> invTransformedSequence = ft::IFFT(transformedSequence);
+    
+    std::cout << "\nInverse Fast Fourier transform: " << std::endl;
+    for(auto& z : invTransformedSequence) std::cout << z << std::endl;
 }
 
 int main() {
 
+    std::cout << "\n-------DISCRETE FOURIER TRANSFORM-------\n" << std::endl;
     DFT_test();
-    std::cout << std::endl;
+
+    std::cout << "\n---------FAST FOURIER TRANSFORM---------\n" << std::endl;
     FFT_test();
 
     return 0;

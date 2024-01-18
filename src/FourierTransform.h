@@ -65,14 +65,14 @@ std::vector<std::complex<T>> DFT(const std::vector<std::complex<T>>& sequence) {
 }
 
 /**
- * @brief Inverse of Discrete Fourier Transform.
+ * @brief Inverse Discrete Fourier Transform.
  * 
  * @param sequence sequence of complex numbers (X1, X2, ..., Xk).
  * 
  * @return returns the new sequence (x1, x2, ..., xk).
 */
 template <typename T>
-std::vector<std::complex<T>> invDFT(const std::vector<std::complex<T>>& sequence) {
+std::vector<std::complex<T>> IDFT(const std::vector<std::complex<T>>& sequence) {
 
     std::vector<std::complex<T>> output;
     for(size_t n = 0; n < sequence.size(); n ++) {
@@ -141,6 +141,29 @@ std::vector<std::complex<T>> FFT(const std::vector<std::complex<T>>& sequence) {
     }
 
    return output;
+}
+
+/**
+ * @brief Radix-2 DIT Inverse Fast Fourier Transform.
+ * 
+ * @pre N must be a power of 2.
+ * 
+ * @param sequence sequence of complex numbers (x1, x2, ..., xn).
+ * 
+ * @return returns the new sequence (X1, X2, ..., Xk).
+*/
+template <typename T>
+std::vector<std::complex<T>> IFFT(const std::vector<std::complex<T>>& sequence) {
+
+    std::vector<std::complex<T>> conjugates;
+    for(auto& z : sequence)
+        conjugates.push_back(std::conj(z));
+
+    std::vector<std::complex<T>> output = FFT(conjugates);
+    for(auto& z : output)
+        z = std::conj(z) / static_cast<T>(output.size());
+    
+    return output;
 }
 
 }
