@@ -9,7 +9,7 @@ The [Fourier transform (FT)](https://en.wikipedia.org/wiki/Fourier_transform) is
 $$\widehat {f}(\xi )=\int _{-\infty }^{\infty }f(x)\ e^{-i2\pi \xi x}\,dx$$
 ```
 
-In the case of having discrete data, like a sequence of complex numbers $\left \{ x_n \right \}$ we need the [Discrete Fourier Transform (DFT)](https://en.wikipedia.org/wiki/Discrete_Fourier_transform) to compute a new sequence $\left \{ X_k \right \}$:
+In the case of having discrete data, like a sequence of complex numbers, we need the [Discrete Fourier Transform (DFT)](https://en.wikipedia.org/wiki/Discrete_Fourier_transform):
 
 ```math
 $$X_{k}=\sum _{n=0}^{N-1}x_{n}\cdot e^{-i2\pi {\frac {k}{N}}n}$$
@@ -17,7 +17,7 @@ $$X_{k}=\sum _{n=0}^{N-1}x_{n}\cdot e^{-i2\pi {\frac {k}{N}}n}$$
 
 Note that the standard DFT has a time complexity of $O(N^2)$ where $N$ is the number of data points, whereas [Fast Fourier Transform (FFT)](https://en.wikipedia.org/wiki/Cooley%E2%80%93Tukey_FFT_algorithm) reduces this to $O(N \log N)$, making it much faster for practical applications. For that we:
 
-* Split the complex numbers sequence into two subsequences $\left \{ x_{2m} \right \}$ with the even-indexed elements of the sequence and $\left \{ x_{2m+1} \right \}$ with the odd-indexed elements.
+* Split the complex numbers sequence into two subsequences, one with the even-indexed elements of the sequence and another one with the odd-indexed elements.
 * Solve recursively the DFT's of both sequences and combine them together.
 * Keep in mind that the DFT of a sequence of length one is just the same sequence.
 
