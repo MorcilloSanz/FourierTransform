@@ -3,7 +3,8 @@
 #include <cmath>
 #include <cstdlib> 
 
-#include "FourierTransform.h"
+#include "../src/FourierTransform.h"
+
 
 using namespace std::complex_literals;
 

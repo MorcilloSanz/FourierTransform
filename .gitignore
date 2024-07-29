@@ -1,3 +1,6 @@
 .vscode
 build
-filter/FourierTransform.h
+filter/filter
+filter/filtered_signal.txt
+filter/sampled_signal.txt
+filter/signal.txt

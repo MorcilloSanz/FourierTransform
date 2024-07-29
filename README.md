@@ -25,6 +25,14 @@ Note that the standard DFT has a time complexity of $O(N^2)$ where $N$ is the nu
 $$X_k = \sum_{m = 0}^{N / 2-1}x_{2m}e^{-\frac{2\pi i}{N/2}mk} + e^{-\frac{2\pi i}{N}k}\sum_{m = 0}^{N / 2-1}x_{2m+1}e^{-\frac{2\pi i}{N/2}mk} = E_k + e^{-\frac{2\pi i}{N}k}O_k$$
 ```
 
+## Features
+* **DFT:** Discrete Fourier Transform.
+* **IDFT:** Inverse Discrete Fourier Transform.
+* **FFT:** Radix-2 DIT Fast Fourier Transform.
+* **IFFT:** Radix-2 DIT Inverse Fast Fourier Transform.
+* **FFT_FREQ:** Computes the frequencies of the frequency domain.
+* **normalize:** Normalizes a sequence of complex numbers. 
+
 ## Discrete Fourier Transform (DFT)
 
 ```cpp
