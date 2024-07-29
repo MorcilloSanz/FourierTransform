@@ -17,7 +17,7 @@ $$X_{k}=\sum _{n=0}^{N-1}x_{n}\cdot e^{-i2\pi {\frac {k}{N}}n}$$
 
 Note that the standard DFT has a time complexity of $O(N^2)$ where $N$ is the number of data points, whereas [Fast Fourier Transform (FFT)](https://en.wikipedia.org/wiki/Cooley%E2%80%93Tukey_FFT_algorithm) reduces this to $O(N \log N)$, in this case we are using the *radix-2 DIT* form of the *Cooley–Tukey* algorithm, making it much faster for practical applications. For that we:
 > This simplified form assumes that N is a power of two; since the number of sample points N can usually be chosen freely by the application (e.g. by changing the sample rate or window, zero-padding, etcetera), this is often not an important restriction.
-* Split the complex numbers sequence into two subsequences, one with the even-indexed elements of the sequence and another one with the odd-indexed elements.
+* Split the complex numbers sequence into two subsequences, one with the even-indexed elements of the sequence $E_k$, and another one with the odd-indexed elements $O_k$.
 * Solve recursively the DFT's of both sequences and combine them together.
 * Keep in mind that the DFT of a sequence of length one is just the same sequence.
 
