@@ -166,4 +166,51 @@ std::vector<std::complex<T>> IFFT(const std::vector<std::complex<T>>& sequence) 
     return output;
 }
 
+/**
+ * @brief Computes the frequencies of the frequency domain.
+ * 
+ * @param samples the number of samples.
+ * @param samplingRate the sampling rate.
+ * 
+ * @return returns the frequencies.
+*/
+template <typename T>
+std::vector<T> FFT_FREQ(unsigned int samples, T samplingRate) {
+
+    std::vector<T> freq;
+
+    for(int k = 0; k < samples; k ++)
+        freq.push_back(k * samplingRate / samples);
+
+    return freq;
+}
+
+/**
+ * @brief Normalizes a sequence
+ * 
+ * @param sequence the sequence.
+ * 
+ * @return returns the normalized sequence.
+*/
+template <typename T>
+std::vector<std::complex<T>> normalize(const std::vector<std::complex<T>>& sequence) {
+
+    if (sequence.empty()) return {};
+
+    T norm = 0;
+    for (const auto& val : sequence)
+        norm += std::norm(val);
+    norm = std::sqrt(norm);
+
+    if (norm == 0) return sequence;
+
+    std::vector<std::complex<T>> normalizedSequence;
+    normalizedSequence.reserve(sequence.size());
+
+    for (const auto& val : sequence)
+        normalizedSequence.push_back(val / norm);
+
+    return normalizedSequence;
+}
+
 }
