@@ -68,3 +68,6 @@ int main() {
 	return 0;
 }
 ```
+
+## Signal smoothing
+![](img/filter.png)
