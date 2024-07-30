@@ -5,67 +5,77 @@
 
 #include "../src/FourierTransform.h"
 
-
 using namespace std::complex_literals;
 
+template <typename T>
+std::complex<T> f(T t) {
+    float noise = rand() % 10;
+    return t + 20 * cos(t / 2) + noise;
+}
 
-int main() {
+template <typename T>
+std::vector<std::complex<T>> generateSignal(float t0, float t1, unsigned int samples) {
 
-    // Original signal 
     std::vector<std::complex<double>> signal;
+    float deltaTime = (t1 - t0) / samples;
+
     std::ofstream signalFile("signal.txt");
 
-    float dt = 0.1;
-    for(float t = 0; t < 128; t += dt) {
+    for(float t = t0; t < t1; t += deltaTime) {
 
-        float noise = rand() % 10;
-        std::complex<double> n = t + 20 * cos(t / 2) + noise + 0i;
+        std::complex<double> n = f(t);
+
         signal.push_back(n);
-
         signalFile << n.real() << " ";
     }
 
     signalFile.close();
 
-    // Filter
-    unsigned int samples = 512; // power of 2
-    double sampleRate = static_cast<double>(samples) / signal.size();
-    double lowFrequencyThreshold = 0.01;
-    double highFrequencyThreshold = 0.39;
+    return signal;
+}
 
-    std::ofstream sampledsignalFile("sampled_signal.txt");
+int main() {
 
-    std::vector<std::complex<double>> sampledsignal(samples);
-    for(int k = 0; k < samples; k ++) {
-        sampledsignal[k] = signal[k * static_cast<int>(signal.size() / samples)];
-        sampledsignalFile << sampledsignal[k].real() << " ";
-    }
+    // Original signal 
+    unsigned int samples = 512;
+    float t0 = 0.0f, t1 = 100;
+    
+    std::vector<std::complex<double>> signal = generateSignal<double>(t0, t1, samples);
 
-    sampledsignalFile.close();
+    // Apply filter
+    double lowFrequencyThreshold = 0.1;
+    double highFrequencyThreshold = 5.0;
 
-    std::vector<std::complex<double>> fourierTransform = ft::FFT(sampledsignal);
+    std::vector<std::complex<double>> fourierTransform = ft::FFT(signal);
     std::vector<std::complex<double>> filteredFourierTransform(fourierTransform.size());
 
-    std::vector<double> frequencies = ft::FFT_FREQ(samples, sampleRate);
+    float sampleRate = samples / (t1 - t0);
+    std::vector<double> frequencies = ft::FFT_FREQ<double>(samples, sampleRate);
+
+    std::ofstream fourierTransformRealFile("ftr.txt");
+    std::ofstream fourierTransformImagFile("fti.txt");
+
     for(int k = 0; k < samples; k ++) {
 
         if(fabs(frequencies[k]) <= lowFrequencyThreshold || fabs(frequencies[k]) > highFrequencyThreshold)
             filteredFourierTransform[k] = fourierTransform[k];
         else 
             filteredFourierTransform[k] = 0;
+
+        fourierTransformRealFile << fourierTransform[k].real() << " ";
+        fourierTransformImagFile << fourierTransform[k].imag() << " ";
     }
+
+    fourierTransformRealFile.close();
+    fourierTransformImagFile.close();
     
     // Final signal
     std::vector<std::complex<double>> filteredSignal = ft::IFFT(filteredFourierTransform);
 
     std::ofstream filteredSignalFile("filtered_signal.txt");
-    for(int k = 0; k < samples; k ++) {
 
-        if(k < samples - 1)
-            filteredSignalFile << filteredSignal[k].real() << " ";
-        else
-            filteredSignalFile << filteredSignal[k].real();
-    }
+    for(int k = 0; k < samples; k ++)
+        filteredSignalFile << filteredSignal[k].real() << " ";
         
     filteredSignalFile.close();
 

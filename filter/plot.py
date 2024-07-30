@@ -28,13 +28,21 @@ def read_data(file: str) -> np.array:
 if __name__ == "__main__":
     
     # Read signals
-    signal: np.array = read_data("sampled_signal.txt")
+    signal: np.array = read_data("signal.txt")
+
     filtered_signal: np.array = read_data("filtered_signal.txt")
     residues: np.array = signal - filtered_signal
-    t = range(1, len(signal) + 1)
+
+    fourier_transform_real: np.array = read_data("ftr.txt")
+    fourier_transform_imag: np.array = read_data("fti.txt")
 
     # Plot
+    '''
     fig, ax = plt.subplots()
+
+    t0: float = 0.0
+    t1: float = 100.0
+    t = np.linspace(t0, t1, len(signal))
 
     ax.plot(t, signal, label='signal')
     ax.plot(t, filtered_signal, label='filtered_signal')
@@ -45,4 +53,39 @@ if __name__ == "__main__":
     ax.set_ylabel('A')
 
     ax.legend()
+    plt.show()
+    '''
+
+    t0: float = 0.0
+    t1: float = 100.0
+    t = np.linspace(t0, t1, len(signal))
+
+    fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(12, 6)) 
+
+    # Filtered signal
+    ax[0].plot(t, signal, label='signal')
+    ax[0].plot(t, filtered_signal, label='filtered_signal')
+    ax[0].plot(t, residues, label='residues')
+
+    ax[0].set_title('signal = filtered_signal + residues')
+    ax[0].set_xlabel('t')
+    ax[0].set_ylabel('A')
+
+    ax[0].legend()
+
+    # Fourier transform
+    freq0: float = 0.0
+    freq1: float = 5.11
+    f = np.linspace(freq0, freq1, len(signal))
+
+    ax[1].plot(f, fourier_transform_real, label='real')
+    ax[1].plot(f, fourier_transform_imag, label='imag')
+
+    ax[1].set_title('Fourier transform of signal')
+    ax[1].set_xlabel('f')
+    ax[1].set_ylabel('M')
+
+    ax[1].legend()
+
+    plt.tight_layout()
     plt.show()

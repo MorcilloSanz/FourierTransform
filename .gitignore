@@ -2,5 +2,6 @@
 build
 filter/filter
 filter/filtered_signal.txt
-filter/sampled_signal.txt
 filter/signal.txt
+filter/fti.txt
+filter/ftr.txt
