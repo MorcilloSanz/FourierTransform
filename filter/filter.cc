@@ -53,7 +53,7 @@ int main() {
     std::vector<double> frequencies = ft::FFT_FREQ<double>(samples, sampleRate);
 
     std::ofstream domainsFile("dom.txt");
-    domainsFile << t0 << " " << t1 << " " << frequencies[0] << " " << frequencies[frequencies.size() - 1];
+    domainsFile << t0 << " " << t1 << " " << frequencies[0] << " " << frequencies[frequencies.size() - 1] << " " << samples;
     domainsFile.close();
 
     std::ofstream fourierTransformRealFile("ftr.txt");

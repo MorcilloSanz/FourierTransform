@@ -69,6 +69,9 @@ if __name__ == "__main__":
 
     ax[0].legend()
 
+    ax[0].text(0.5, 0.9, f'samples = {dom[4]}', transform=ax[0].transAxes,
+           fontsize=12, ha='center', bbox=dict(facecolor='white', alpha=0.8))
+
     # Fourier transform
     freq0: float = dom[2]
     freq1: float = dom[3]
@@ -83,7 +86,7 @@ if __name__ == "__main__":
 
     ax[1].legend()
 
-    ax[1].text(0.5, 0.9, f'Sample frequency: fs = {freq1}', transform=ax[1].transAxes,
+    ax[1].text(0.5, 0.9, f'Sample frequency: fs = samples / (t1 - t0) = {freq1}', transform=ax[1].transAxes,
            fontsize=12, ha='center', bbox=dict(facecolor='white', alpha=0.8))
     
     ax[1].text(0.5, 0.8, f'Nyquist frequency: fN = fs / 2 = {freq1 / 2}', transform=ax[1].transAxes,
