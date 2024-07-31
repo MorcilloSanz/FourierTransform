@@ -9,8 +9,8 @@ using namespace std::complex_literals;
 
 template <typename T>
 std::complex<T> f(T t) {
-    T noise = rand() % 10;
-    return t + 20 * cos(t / 2) + noise;
+    T noise = rand() % 100;
+    return t + 100 * cos(t / 20) + noise;
 }
 
 template <typename T>
@@ -37,20 +37,24 @@ std::vector<std::complex<T>> generateSignal(float t0, float t1, unsigned int sam
 int main() {
 
     // Original signal 
-    unsigned int samples = 512;
-    float t0 = 0.0f, t1 = 100;
+    unsigned int samples = 1024;
+    float t0 = 0.0f, t1 = 1000;
     
     std::vector<std::complex<double>> signal = generateSignal<double>(t0, t1, samples);
 
     // Apply filter
-    double lowFrequencyThreshold = 0.1;
-    double highFrequencyThreshold = 5.0;
+    double lowFrequencyThreshold = 0.02;
+    double highFrequencyThreshold = 1.0;
 
     std::vector<std::complex<double>> fourierTransform = ft::FFT(signal);
     std::vector<std::complex<double>> filteredFourierTransform(fourierTransform.size());
 
     float sampleRate = samples / (t1 - t0);
     std::vector<double> frequencies = ft::FFT_FREQ<double>(samples, sampleRate);
+
+    std::ofstream domainsFile("dom.txt");
+    domainsFile << t0 << " " << t1 << " " << frequencies[0] << " " << frequencies[frequencies.size() - 1];
+    domainsFile.close();
 
     std::ofstream fourierTransformRealFile("ftr.txt");
     std::ofstream fourierTransformImagFile("fti.txt");

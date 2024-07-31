@@ -36,28 +36,11 @@ if __name__ == "__main__":
     fourier_transform_real: np.array = read_data("ftr.txt")
     fourier_transform_imag: np.array = read_data("fti.txt")
 
+    dom: np.array = read_data("dom.txt")
+
     # Plot
-    '''
-    fig, ax = plt.subplots()
-
-    t0: float = 0.0
-    t1: float = 100.0
-    t = np.linspace(t0, t1, len(signal))
-
-    ax.plot(t, signal, label='signal')
-    ax.plot(t, filtered_signal, label='filtered_signal')
-    ax.plot(t, residues, label='residues')
-
-    ax.set_title('signal = filtered_signal + residues')
-    ax.set_xlabel('t')
-    ax.set_ylabel('A')
-
-    ax.legend()
-    plt.show()
-    '''
-
-    t0: float = 0.0
-    t1: float = 100.0
+    t0: float = dom[0]
+    t1: float = dom[1]
     t = np.linspace(t0, t1, len(signal))
 
     fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(12, 6)) 
@@ -74,8 +57,8 @@ if __name__ == "__main__":
     ax[0].legend()
 
     # Fourier transform
-    freq0: float = 0.0
-    freq1: float = 5.11
+    freq0: float = dom[2]
+    freq1: float = dom[3]
     f = np.linspace(freq0, freq1, len(signal))
 
     ax[1].plot(f, fourier_transform_real, label='real')
