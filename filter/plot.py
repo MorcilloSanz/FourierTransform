@@ -72,16 +72,22 @@ if __name__ == "__main__":
     # Fourier transform
     freq0: float = dom[2]
     freq1: float = dom[3]
-    f = np.linspace(freq0, freq1, len(signal))
+    f = np.linspace(freq0, freq1 / 2, len(signal) // 2)
 
-    ax[1].plot(f, fourier_transform_real, label='real')
-    ax[1].plot(f, fourier_transform_imag, label='imag')
+    ax[1].plot(f, fourier_transform_real[:len(signal) // 2], label='real')
+    ax[1].plot(f, fourier_transform_imag[:len(signal) // 2], label='imag')
 
-    ax[1].set_title('Fourier transform of signal')
+    ax[1].set_title(f'Fourier transform of signal')
     ax[1].set_xlabel('f')
     ax[1].set_ylabel('M')
 
     ax[1].legend()
+
+    ax[1].text(0.5, 0.9, f'Sample frequency: fs = {freq1}', transform=ax[1].transAxes,
+           fontsize=12, ha='center', bbox=dict(facecolor='white', alpha=0.8))
+    
+    ax[1].text(0.5, 0.8, f'Nyquist frequency: fN = fs / 2 = {freq1 / 2}', transform=ax[1].transAxes,
+           fontsize=12, ha='center', bbox=dict(facecolor='white', alpha=0.8))
 
     plt.tight_layout()
     plt.show()
