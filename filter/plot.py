@@ -75,10 +75,12 @@ if __name__ == "__main__":
     # Fourier transform
     freq0: float = dom[2]
     freq1: float = dom[3]
-    f = np.linspace(freq0, freq1 / 2, len(signal) // 2)
+    f = np.linspace(freq0, freq1, len(signal))
 
-    ax[1].plot(f, fourier_transform_real[:len(signal) // 2], label='real')
-    ax[1].plot(f, fourier_transform_imag[:len(signal) // 2], label='imag')
+    ax[1].plot(f, fourier_transform_real, label='real')
+    ax[1].plot(f, fourier_transform_imag, label='imag')
+
+    ax[1].axvline(x=freq1 / 2, color='r', linestyle='--', label='fN')
 
     ax[1].set_title(f'Fourier transform of signal')
     ax[1].set_xlabel('f')
