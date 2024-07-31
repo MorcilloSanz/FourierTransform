@@ -9,21 +9,21 @@ using namespace std::complex_literals;
 
 template <typename T>
 std::complex<T> f(T t) {
-    float noise = rand() % 10;
+    T noise = rand() % 10;
     return t + 20 * cos(t / 2) + noise;
 }
 
 template <typename T>
 std::vector<std::complex<T>> generateSignal(float t0, float t1, unsigned int samples) {
 
-    std::vector<std::complex<double>> signal;
+    std::vector<std::complex<T>> signal;
     float deltaTime = (t1 - t0) / samples;
 
     std::ofstream signalFile("signal.txt");
 
     for(float t = t0; t < t1; t += deltaTime) {
 
-        std::complex<double> n = f(t);
+        std::complex<T> n = f(t);
 
         signal.push_back(n);
         signalFile << n.real() << " ";
